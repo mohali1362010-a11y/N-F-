@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0b1411"><link rel="icon" href="icons/icon.svg" type="image/svg+xml"><link rel="apple-touch-icon" href="icons/icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><title>NutriFlex · جليس القوة</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@700&family=Katibeh&family=Cairo:wght@400;600;700&family=Inter:wght@500;700&display=swap">
+<style>
+:root{--bg:#0b1411;--card:rgba(255,255,255,.06);--bd:rgba(212,175,95,.25);--tx:#f3ecdc;--mu:#a9b3ab;--gold:#d4af5f;--em:#2bb58a;--rd:#e5604d;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media(prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f6f0e2;--card:rgba(255,255,255,.7);--bd:rgba(150,110,30,.3);--tx:#1c2a24;--mu:#5b665f;--gold:#9a7421;--em:#16845f;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f6f0e2;--card:rgba(255,255,255,.7);--bd:rgba(150,110,30,.3);--tx:#1c2a24;--mu:#5b665f;--gold:#9a7421;--em:#16845f;color-scheme:light}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%23d4af5f' stroke-opacity='.09' stroke-width='1'%3E%3Cpath d='M40 4l9 18 19-9-9 19 18 9-18 9 9 19-19-9-9 18-9-18-19 9 9-19-18-9 18-9-9-19 19 9z'/%3E%3Ccircle cx='40' cy='40' r='9'/%3E%3C/g%3E%3C/svg%3E");color:var(--tx);font-family:Cairo,Inter,system-ui,sans-serif;min-height:100vh;padding-bottom:84px}
+[dir=ltr] body{font-family:Inter,Cairo,system-ui,sans-serif}
+.num{font-family:Inter,sans-serif;font-variant-numeric:tabular-nums}
+h1,h2{font-family:'Aref Ruqaa',serif;color:var(--gold);margin:0}
+h1{font-size:30px}h2{font-size:22px;margin:4px 0 10px}
+.dw{font-family:Katibeh,'Aref Ruqaa',serif;font-size:24px;color:var(--em)}
+header{display:flex;justify-content:space-between;align-items:center;padding:14px 16px}
+main{max-width:640px;margin:auto;padding:0 14px}
+.c{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin-bottom:12px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.ban{text-align:center;background:linear-gradient(135deg,rgba(43,181,138,.18),rgba(212,175,95,.18))}
+button,input,select,textarea{font:inherit;color:var(--tx)}
+button{background:var(--gold);color:#1a1405;border:0;border-radius:12px;padding:9px 14px;font-weight:700;cursor:pointer}
+button.g{background:transparent;border:1px solid var(--bd);color:var(--tx)}button.d{background:var(--rd);color:#fff}
+input,select,textarea{background:rgba(127,127,127,.12);border:1px solid var(--bd);border-radius:10px;padding:8px;width:100%}
+.r{display:flex;gap:8px;align-items:center}.r>*{flex:1}.sp{justify-content:space-between}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+label{font-size:13px;color:var(--mu);display:block;margin:6px 0 2px}
+.bar{height:8px;border-radius:6px;background:rgba(127,127,127,.2);overflow:hidden}.bar i{display:block;height:100%}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--bg);border-top:1px solid var(--bd);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));z-index:5}
+nav button{flex:1;background:none;color:var(--mu);font-size:12px;padding:6px 2px}nav button.on{color:var(--gold)}
+nav b{display:block;font-size:20px}
+.row{display:flex;justify-content:space-between;gap:8px;padding:8px 0;border-bottom:1px solid var(--bd);align-items:center}
+.m{font-size:12px;color:var(--mu)}
+.msg{padding:9px 12px;border-radius:14px;margin:6px 0;white-space:pre-wrap;max-width:88%}.u{background:var(--gold);color:#1a1405;margin-inline-start:auto}.a{background:var(--card);border:1px solid var(--bd)}
+.set{display:grid;grid-template-columns:28px 1fr 1fr 40px;gap:6px;margin:5px 0;align-items:center}.set.ok input{opacity:.55}
+.tbl{overflow-x:auto}
+</style></head><body>
+<header><div><h1 id="t_app"></h1><div class="dw" id="t_sub"></div></div><div class="r" style="flex:none"><button class="g" id="lang"></button><button class="g" id="thm">◐</button></div></header>
+<main id="v"></main>
+<nav id="nav"></nav>
+<script>
+"use strict";
+if(typeof claude==="undefined")window.claude={use:async()=>null};
+const T={ar:{app:"جليس القوة",sub:"قوّتك تبدأ من هنا",home:"اليوم",food:"الأكل",coach:"المدرب",train:"التمرين",me:"حسابي",kcal:"سعرة",left:"المتبقي",p:"بروتين",c:"كارب",f:"دهون",add:"إضافة",g:"جرام",search:"ابحث عن طعام…",photo:"📷 صوّر وجبتك",ana:"جارٍ التحليل…",age:"العمر",sex:"الجنس",m:"ذكر",fm:"أنثى",h:"الطول (سم)",w:"الوزن (كجم)",act:"النشاط",goal:"الهدف",cut:"تنشيف",bulk:"تضخيم",mnt:"ثبات",calc:"احسب",bmr:"معدل الأيض BMR",tdee:"الاحتياج TDEE",target:"هدفك اليومي",ask:"اسأل المدرب…",send:"إرسال",newr:"+ روتين جديد",start:"ابدأ",fin:"إنهاء",rest:"راحة",vol:"الحجم",prev:"السابق",kg:"كجم",reps:"تكرار",addset:"+ مجموعة",name:"اسم الروتين",save:"حفظ",del:"حذف",hist:"السجل",steps:"الخطوات والنبض (Health Connect)",hc:"مزامنة Zepp تتطلب تطبيق أندرويد أصلي، ولا يمكن من صفحة ويب. أدخل القيم يدويًا هنا.",noai:"ميزة الذكاء غير متاحة في هذا العرض",today:"اليوم",empty:"لا شيء بعد",pickex:"اختر التمارين",mot:"«الصبر مفتاح الفرج» — كل تكرار يقرّبك",sets:"مجموعات",hr:"نبض",act2:"سعرات نشطة"},
+en:{app:"NutriFlex",sub:"Strength begins here",home:"Today",food:"Food",coach:"Coach",train:"Train",me:"Profile",kcal:"kcal",left:"Remaining",p:"Protein",c:"Carbs",f:"Fat",add:"Add",g:"grams",search:"Search food…",photo:"📷 Snap your meal",ana:"Analyzing…",age:"Age",sex:"Sex",m:"Male",fm:"Female",h:"Height (cm)",w:"Weight (kg)",act:"Activity",goal:"Goal",cut:"Cut",bulk:"Bulk",mnt:"Maintain",calc:"Calculate",bmr:"BMR",tdee:"TDEE",target:"Daily target",ask:"Ask your coach…",send:"Send",newr:"+ New routine",start:"Start",fin:"Finish",rest:"Rest",vol:"Volume",prev:"Previous",kg:"kg",reps:"reps",addset:"+ Set",name:"Routine name",save:"Save",del:"Delete",hist:"History",steps:"Steps & heart (Health Connect)",hc:"Zepp sync needs a native Android app; a web page cannot read Health Connect. Enter values manually here.",noai:"AI is not available in this view",today:"Today",empty:"Nothing yet",pickex:"Pick exercises",mot:"Every rep brings you closer",sets:"sets",hr:"HR",act2:"Active kcal"}};
+const ACT=[[1.2,"Sedentary · خامل"],[1.375,"Light · خفيف"],[1.55,"Moderate · متوسط"],[1.725,"High · عالٍ"],[1.9,"Athlete · رياضي"]];
+// per 100g: [en, ar, kcal, P, C, F]
+const FD=[["Chicken breast, cooked","صدر دجاج مطبوخ",165,31,0,3.6],["Beef, lean, cooked","لحم بقري قليل الدسم",217,26,0,12],["Egg, whole","بيض كامل",143,12.6,.7,9.5],["Tuna, canned in water","تونة بالماء",116,26,0,1],["Ful medames, cooked","فول مدمس",110,7.6,19,.5],["Taameya (falafel)","طعمية",333,13.3,31.8,17.8],["Koshary","كشري",160,5,28,3],["Rice, white, cooked","أرز أبيض مطبوخ",130,2.7,28,.3],["Rice, white, raw","أرز أبيض نيء",365,7.1,80,.7],["Pasta, cooked","مكرونة مطبوخة",158,5.8,31,.9],["Baladi bread","عيش بلدي",270,9,55,1.5],["Oats, raw","شوفان نيء",389,16.9,66,6.9],["Potato, boiled","بطاطس مسلوقة",87,1.9,20,.1],["Sweet potato, baked","بطاطا مشوية",90,2,21,.2],["Lentils, cooked","عدس مطبوخ",116,9,20,.4],["Chickpeas, cooked","حمص مطبوخ",164,8.9,27,2.6],["Molokhia, cooked","ملوخية",40,3,5,1],["Mahshi (rice stuffed)","محشي",150,3,24,5],["Feteer meshaltet","فطير مشلتت",420,8,45,23],["Hawawshi","حواوشي",290,14,22,16],["Greek yogurt","زبادي يوناني",59,10,3.6,.4],["Rayeb / plain yogurt","زبادي",61,3.5,4.7,3.3],["Milk, whole","لبن كامل الدسم",61,3.2,4.8,3.3],["White cheese (Domty)","جبنة بيضاء",264,14,4,21],["Banana","موز",89,1.1,23,.3],["Dates","تمر",282,2.5,75,.4],["Apple","تفاح",52,.3,14,.2],["Olive oil","زيت زيتون",884,0,0,100],["Peanut butter","زبدة فول سوداني",588,25,20,50],["Almonds","لوز",579,21,22,50],["Tahini","طحينة",595,17,21,54],["Whey protein powder","واي بروتين",400,80,8,6],["Salmon, cooked","سلمون مطبوخ",206,22,0,12],["Tilapia, cooked","بلطي مطبوخ",128,26,0,2.7]];
+const EX=[["Barbell Bench Press","بنش بار","Chest"],["Incline Dumbbell Press","ضغط مائل دامبل","Chest"],["Chest Fly (Cable)","فتح كابل","Chest"],["Push-up","ضغط","Chest"],["Deadlift","ديدلفت","Back"],["Pull-up","عقلة","Back"],["Lat Pulldown","سحب أمامي","Back"],["Barbell Row","تجديف بار","Back"],["Seated Cable Row","تجديف كابل","Back"],["Overhead Press","ضغط كتف بار","Shoulders"],["Lateral Raise","رفرفة جانبية","Shoulders"],["Face Pull","فيس بول","Shoulders"],["Back Squat","سكوات","Legs"],["Leg Press","ليج برس","Legs"],["Romanian Deadlift","رومانيان ديدلفت","Legs"],["Leg Extension","رفرفة أرجل أمامية","Legs"],["Leg Curl","رفرفة أرجل خلفية","Legs"],["Calf Raise","سمانة","Legs"],["Barbell Curl","باي بار","Biceps"],["Hammer Curl","هامر","Biceps"],["Triceps Pushdown","تراي كابل","Triceps"],["Skull Crusher","سكل كراشر","Triceps"],["Dips","متوازي","Triceps"],["Plank","بلانك","Core"],["Cable Crunch","بطن كابل","Core"],["Hip Thrust","هيب ثرست","Glutes"]];
+const S0={lang:"ar",theme:"",prof:{age:22,sex:"m",h:175,w:75,act:1.55,goal:"mnt"},log:{},routines:[],hist:[],tab:"home",chat:[],vit:{}};
+let S=JSON.parse(JSON.stringify(S0)),ses=null,tm=null,rest=0;
+try{const x=localStorage.getItem("nf1");if(x)S=Object.assign(S,JSON.parse(x))}catch(e){}
+const sv=()=>{try{localStorage.setItem("nf1",JSON.stringify(S))}catch(e){}};
+const t=k=>T[S.lang][k]||k,$=s=>document.querySelector(s);
+const day=()=>new Date().toISOString().slice(0,10);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fn=f=>S.lang=="ar"?f[1]:f[0];
+function calc(){const p=S.prof;const bmr=10*p.w+6.25*p.h-5*p.age+(p.sex=="m"?5:-161);const tdee=bmr*p.act;const adj={cut:.8,bulk:1.1,mnt:1}[p.goal];const k=Math.round(tdee*adj);const pr=Math.round(p.w*(p.goal=="cut"?2.2:1.8));const fat=Math.round(k*.25/9);const cb=Math.max(0,Math.round((k-pr*4-fat*9)/4));return{bmr:Math.round(bmr),tdee:Math.round(tdee),k,p:pr,f:fat,c:cb}}
+function tot(){const L=S.log[day()]||[];return L.reduce((a,e)=>({k:a.k+e.k,p:a.p+e.p,c:a.c+e.c,f:a.f+e.f}),{k:0,p:0,c:0,f:0})}
+function setTheme(){document.documentElement.dir=S.lang=="ar"?"rtl":"ltr";document.documentElement.lang=S.lang;if(S.theme)document.documentElement.setAttribute("data-theme",S.theme);else document.documentElement.removeAttribute("data-theme")}
+function go(tab){S.tab=tab;sv();render()}
+function render(){setTheme();$("#t_app").textContent=t("app");$("#t_sub").textContent=t("sub");$("#lang").textContent=S.lang=="ar"?"EN":"عربي";
+const tabs=[["home","◈"],["food","🍽"],["coach","✦"],["train","🏋"],["me","☪"]];
+$("#nav").innerHTML=tabs.map(([k,i])=>`<button class="${S.tab==k?"on":""}" data-t="${k}"><b>${i}</b>${t(k)}</button>`).join("");
+$("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>go(b.dataset.t));
+({home:home,food:food,coach:coach,train:train,me:me})[S.tab]()}
+function ring(v,max){const r=52,C=2*Math.PI*r,pc=Math.min(1,v/max);return `<svg width="130" height="130" viewBox="0 0 130 130"><circle cx="65" cy="65" r="${r}" fill="none" stroke="rgba(127,127,127,.25)" stroke-width="10"/><circle cx="65" cy="65" r="${r}" fill="none" stroke="${v>max?"var(--rd)":"var(--em)"}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${C*pc} ${C}" transform="rotate(-90 65 65)"/></svg>`}
+function mac(l,v,m,c){return `<div><div class="m">${l} <span class="num">${Math.round(v)}/${m}</span></div><div class="bar"><i style="width:${Math.min(100,v/m*100)}%;background:${c}"></i></div></div>`}
+function home(){const g=calc(),a=tot(),vt=S.vit[day()]||{};
+$("#v").innerHTML=`<div class="c ban"><div class="dw">${t("mot")}</div></div>
+<div class="c"><div class="r sp"><div style="flex:none;position:relative">${ring(a.k,g.k)}<div class="num" style="position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-weight:700;font-size:22px">${Math.round(g.k-a.k)}<small class="m" style="display:block;font-size:11px;font-weight:500">${t("left")}</small></div></div>
+<div style="flex:1;display:grid;gap:10px">${mac(t("p"),a.p,g.p,"var(--em)")}${mac(t("c"),a.c,g.c,"var(--gold)")}${mac(t("f"),a.f,g.f,"var(--rd)")}</div></div></div>
+<div class="c"><h2>${t("steps")}</h2><div class="g2"><div><label>👣</label><input class="num" type="number" id="vs" value="${vt.s||""}"></div><div><label>${t("hr")} ❤</label><input class="num" type="number" id="vh" value="${vt.h||""}"></div></div><label>${t("act2")}</label><input class="num" type="number" id="va" value="${vt.a||""}"><p class="m">${t("hc")}</p></div>
+<div class="c"><h2>${t("today")}</h2>${(S.log[day()]||[]).map((e,i)=>`<div class="row"><div>${esc(e.n)}<div class="m num">${e.g}g · P${Math.round(e.p)} C${Math.round(e.c)} F${Math.round(e.f)}</div></div><div class="num">${Math.round(e.k)} <button class="g" data-d="${i}">×</button></div></div>`).join("")||`<p class="m">${t("empty")}</p>`}</div>`;
+["vs","vh","va"].forEach(id=>$("#"+id).onchange=()=>{S.vit[day()]={s:+$("#vs").value,h:+$("#vh").value,a:+$("#va").value};sv()});
+document.querySelectorAll("[data-d]").forEach(b=>b.onclick=()=>{S.log[day()].splice(+b.dataset.d,1);sv();render()})}
+function addLog(n,g,per){const k=g/100;(S.log[day()]=S.log[day()]||[]).push({n,g,k:per[0]*k,p:per[1]*k,c:per[2]*k,f:per[3]*k});sv()}
+function food(){$("#v").innerHTML=`<div class="c"><button id="ph" style="width:100%">${t("photo")}</button><input type="file" id="fi" accept="image/*" capture="environment" hidden><div id="ps" class="m"></div></div>
+<div class="c"><input id="q" placeholder="${t("search")}"><div id="fl"></div></div>`;
+const lst=()=>{const q=$("#q").value.toLowerCase();$("#fl").innerHTML=FD.map((f,i)=>[f,i]).filter(([f])=>(f[0]+f[1]).toLowerCase().includes(q)).map(([f,i])=>`<div class="row"><div>${fn(f)}<div class="m num">${f[2]} ${t("kcal")} · P${f[3]} C${f[4]} F${f[5]}</div></div><div class="r" style="flex:none;width:150px"><input class="num" type="number" value="100" id="g${i}"><button data-a="${i}">${t("add")}</button></div></div>`).join("");
+document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{const i=+b.dataset.a,f=FD[i];addLog(fn(f),+$("#g"+i).value||100,f.slice(2));b.textContent="✓"})};
+$("#q").oninput=lst;lst();
+$("#ph").onclick=()=>$("#fi").click();
+$("#fi").onchange=async e=>{const file=e.target.files[0];if(!file)return;const ps=$("#ps");ps.textContent=t("ana");
+try{const s=await claude.use("sample");if(!s||!(await s.limits()).images){ps.textContent=t("noai");return}
+const r=await s.json(`Analyze this meal photo. Detect each food item (prefer Egyptian/Middle Eastern naming), estimate portion in grams, and compute calories and macros. Reply ONLY JSON: {"items":[{"name":"${S.lang=="ar"?"Arabic":"English"} name","grams":0,"kcal":0,"p":0,"c":0,"f":0}]}`,{images:[file],cache:false});
+const it=r.items||[];ps.innerHTML=it.map((x,i)=>`<div class="row"><div>${esc(x.name)} · <span class="num">${x.grams}g ${x.kcal}${t("kcal")}</span></div><button data-i="${i}">${t("add")}</button></div>`).join("")+`<p class="m">≈ estimate · تقدير تقريبي</p>`;
+ps.querySelectorAll("[data-i]").forEach(b=>b.onclick=()=>{const x=it[+b.dataset.i];(S.log[day()]=S.log[day()]||[]).push({n:x.name,g:x.grams,k:x.kcal,p:x.p,c:x.c,f:x.f});sv();b.textContent="✓"})}catch(err){ps.textContent=t("noai")}}}
+function coach(){$("#v").innerHTML=`<div class="c"><div id="cm">${S.chat.map(m=>`<div class="msg ${m.r=="u"?"u":"a"}">${esc(m.t)}</div>`).join("")}</div><div class="r"><input id="ci" placeholder="${t("ask")}"><button id="cs" style="flex:none">${t("send")}</button></div></div>`;
+const send=async()=>{const q=$("#ci").value.trim();if(!q)return;S.chat.push({r:"u",t:q});S.chat.push({r:"a",t:"…"});coach_draw();
+try{const s=await claude.use("sample");if(!s)throw 0;const g=calc();
+const h=S.chat.slice(-9,-1).map(m=>({role:m.r=="u"?"user":"assistant",content:m.t}));
+const sys=`You are an elite sports nutritionist and strength coach for one athlete (${JSON.stringify(S.prof)}, daily target ${g.k} kcal, protein ${g.p}g). Answer in ${S.lang=="ar"?"Arabic":"English"}, concise, evidence-based, practical, Egyptian foods when relevant. Give no medical diagnoses.\n\n`;
+h[h.length-1].content=sys+h[h.length-1].content;
+const r=await s(h,{cache:false,onText:({text})=>{S.chat[S.chat.length-1].t=text;coach_draw()}});S.chat[S.chat.length-1].t=r.text}catch(e){S.chat[S.chat.length-1].t=t("noai")}sv();coach_draw()};
+$("#cs").onclick=send;$("#ci").onkeydown=e=>{if(e.key=="Enter")send()};
+window.coach_draw=()=>{const c=$("#cm");if(!c)return;c.innerHTML=S.chat.map(m=>`<div class="msg ${m.r=="u"?"u":"a"}">${esc(m.t)}</div>`).join("");$("#ci").value=""}}
+const exn=i=>S.lang=="ar"?EX[i][1]:EX[i][0];
+function lastOf(i){for(let k=S.hist.length-1;k>=0;k--){const e=S.hist[k].ex.find(x=>x.i==i);if(e)return e.sets.filter(s=>s.d).map(s=>s.w+"×"+s.r).join(" · ")}return"—"}
+function train(){if(ses)return sess();
+$("#v").innerHTML=`<div class="c"><h2>${t("train")}</h2>${S.routines.map((r,i)=>`<div class="row"><div><b>${esc(r.n)}</b><div class="m">${r.ex.map(exn).join("، ")}</div></div><div class="r" style="flex:none"><button data-s="${i}">${t("start")}</button><button class="d" data-x="${i}">×</button></div></div>`).join("")}<button class="g" id="nr" style="width:100%;margin-top:10px">${t("newr")}</button></div>
+<div class="c"><h2>${t("hist")}</h2>${S.hist.slice(-8).reverse().map(h=>`<div class="row"><div>${esc(h.n)}<div class="m">${h.d}</div></div><div class="num">${t("vol")} ${Math.round(h.v)}</div></div>`).join("")||`<p class="m">${t("empty")}</p>`}</div>`;
+$("#nr").onclick=builder;
+document.querySelectorAll("[data-s]").forEach(b=>b.onclick=()=>{const r=S.routines[+b.dataset.s];ses={n:r.n,ex:r.ex.map(i=>({i,sets:[{w:"",r:"",d:0}]}))};render()});
+document.querySelectorAll("[data-x]").forEach(b=>b.onclick=()=>{S.routines.splice(+b.dataset.x,1);sv();render()})}
+function builder(){const sel=new Set();$("#v").innerHTML=`<div class="c"><h2>${t("newr")}</h2><input id="rn" placeholder="${t("name")}"><label>${t("pickex")}</label>${EX.map((e,i)=>`<div class="row"><label style="margin:0;color:var(--tx)"><input type="checkbox" data-e="${i}" style="width:auto"> ${exn(i)} <span class="m">${e[2]}</span></label></div>`).join("")}<button id="rs" style="width:100%;margin-top:10px">${t("save")}</button></div>`;
+document.querySelectorAll("[data-e]").forEach(c=>c.onchange=()=>c.checked?sel.add(+c.dataset.e):sel.delete(+c.dataset.e));
+$("#rs").onclick=()=>{if(!sel.size)return;S.routines.push({n:$("#rn").value||"Routine",ex:[...sel]});sv();render()}}
+function sess(){const vol=()=>ses.ex.reduce((a,e)=>a+e.sets.filter(s=>s.d).reduce((b,s)=>b+(+s.w||0)*(+s.r||0),0),0);
+$("#v").innerHTML=`<div class="c ban"><h2>${esc(ses.n)}</h2><div class="num" id="vl">${t("vol")}: ${vol()} ${t("kg")}</div><div class="num dw" id="rt"></div></div>`+ses.ex.map((e,ei)=>`<div class="c"><b>${exn(e.i)}</b><div class="m">${t("prev")}: <span class="num">${lastOf(e.i)}</span></div>${e.sets.map((s,si)=>`<div class="set ${s.d?"ok":""}"><span class="num">${si+1}</span><input class="num" type="number" inputmode="decimal" placeholder="${t("kg")}" value="${s.w}" data-w="${ei},${si}"><input class="num" type="number" inputmode="numeric" placeholder="${t("reps")}" value="${s.r}" data-r="${ei},${si}"><button class="${s.d?"":"g"}" data-k="${ei},${si}">✓</button></div>`).join("")}<button class="g" data-a="${ei}">${t("addset")}</button></div>`).join("")+`<div class="r"><button id="fn">${t("fin")}</button><button class="g" id="cn">✕</button></div>`;
+const p=a=>a.split(",").map(Number);
+document.querySelectorAll("[data-w]").forEach(i=>i.oninput=()=>{const[a,b]=p(i.dataset.w);ses.ex[a].sets[b].w=i.value;$("#vl").textContent=`${t("vol")}: ${vol()} ${t("kg")}`});
+document.querySelectorAll("[data-r]").forEach(i=>i.oninput=()=>{const[a,b]=p(i.dataset.r);ses.ex[a].sets[b].r=i.value;$("#vl").textContent=`${t("vol")}: ${vol()} ${t("kg")}`});
+document.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const[a,c]=p(b.dataset.k),s=ses.ex[a].sets[c];s.d=s.d?0:1;if(s.d)startRest(90);sess()});
+document.querySelectorAll("[data-a]").forEach(b=>b.onclick=()=>{const e=ses.ex[+b.dataset.a],l=e.sets[e.sets.length-1];e.sets.push({w:l.w,r:l.r,d:0});sess()});
+$("#cn").onclick=()=>{ses=null;clearInterval(tm);render()};
+$("#fn").onclick=()=>{S.hist.push({n:ses.n,d:day(),v:vol(),ex:ses.ex});sv();ses=null;clearInterval(tm);render()};tick()}
+function startRest(s){rest=s;clearInterval(tm);tm=setInterval(()=>{rest--;tick();if(rest<=0){clearInterval(tm);try{navigator.vibrate&&navigator.vibrate(300)}catch(e){}}},1000)}
+function tick(){const e=$("#rt");if(e)e.textContent=rest>0?`${t("rest")} ${Math.floor(rest/60)}:${String(rest%60).padStart(2,"0")}`:""}
+function me(){const p=S.prof,g=calc();
+$("#v").innerHTML=`<div class="c"><h2>${t("me")}</h2><div class="g2"><div><label>${t("age")}</label><input class="num" type="number" id="pa" value="${p.age}"></div><div><label>${t("sex")}</label><select id="ps2"><option value="m" ${p.sex=="m"?"selected":""}>${t("m")}</option><option value="f" ${p.sex=="f"?"selected":""}>${t("fm")}</option></select></div><div><label>${t("h")}</label><input class="num" type="number" id="ph2" value="${p.h}"></div><div><label>${t("w")}</label><input class="num" type="number" id="pw" value="${p.w}"></div></div>
+<label>${t("act")}</label><select id="pc">${ACT.map(a=>`<option value="${a[0]}" ${a[0]==p.act?"selected":""}>${a[1]}</option>`).join("")}</select>
+<label>${t("goal")}</label><select id="pg">${[["cut","cut"],["mnt","mnt"],["bulk","bulk"]].map(([k])=>`<option value="${k}" ${p.goal==k?"selected":""}>${t(k)}</option>`).join("")}</select></div>
+<div class="c ban"><div class="m">${t("bmr")}: <b class="num">${g.bmr}</b> · ${t("tdee")}: <b class="num">${g.tdee}</b></div><div class="dw">${t("target")}</div><div class="num" style="font-size:38px;font-weight:700;color:var(--gold)">${g.k}</div><div class="num m">P ${g.p}g · C ${g.c}g · F ${g.f}g</div></div>`;
+const up=()=>{S.prof={age:+$("#pa").value,sex:$("#ps2").value,h:+$("#ph2").value,w:+$("#pw").value,act:+$("#pc").value,goal:$("#pg").value};sv();me()};
+["pa","ps2","ph2","pw","pc","pg"].forEach(i=>$("#"+i).onchange=up)}
+$("#lang").onclick=()=>{S.lang=S.lang=="ar"?"en":"ar";sv();render()};
+$("#thm").onclick=()=>{S.theme=S.theme=="light"?"dark":"light";sv();render()};
+render();
+if("serviceWorker"in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+</script></body></html>
